@@ -1,0 +1,13 @@
+[project]
+name = "RAG_Assistent"
+version = "0.1.0"
+description = "An AI-powered web application that uses Retrieval-Augmented Generation (RAG) to transform recorded video lectures into interactive knowledge bases, allowing students to instantly generate summaries and ask specific questions about the content."
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "chromadb>=1.5.9",
+    "faster-whisper>=1.2.1",
+    "ollama>=0.6.2",
+    "requests>=2.34.0",
+    "yt-dlp>=2026.3.17",
+]
