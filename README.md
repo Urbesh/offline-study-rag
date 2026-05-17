@@ -15,9 +15,9 @@ The system follows a standard RAG architecture:
 1.  **Ingestion Pipeline**: Video -> Audio Extraction -> Transcription -> Chunking -> Embedding -> Vector DB.
 2.  **Query Pipeline**: User Query -> Embedding -> Vector DB Search (Retrieval) -> LLM Context Augmentation -> Answer Generation.
 
-## Prograssion
-**Backend**  [Done]
-**Frontend** [Pending...]
-**connect backend and frontend** [Pending...]
-**Proper Readme file with technical details and stuff** [Pending...]
+### Prograssion
+- **Backend**  [Done]
+- **Frontend** [Pending...]
+- **connect backend and frontend** [Pending...]
+- **Proper Readme file with technical details and stuff** [Pending...]
 
