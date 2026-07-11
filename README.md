@@ -119,7 +119,7 @@ The system follows a standard two-pipeline RAG architecture:
 
 ---
 
-## 🛠 Tech Stack
+## Tech Stack
 
 | Category | Technology | Purpose |
 |---|---|---|
@@ -135,7 +135,7 @@ The system follows a standard two-pipeline RAG architecture:
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -210,7 +210,7 @@ Make sure you have the following installed on your system before proceeding:
 
 4. **Start using it:**
    - Use the sidebar to download a YouTube video or upload a local video file.
-   - Click **"🚀 Process All Videos"** to run the full pipeline.
+   - Click **"Process All Videos"** to run the full pipeline.
    - Once processing is complete, ask questions in the chat!
 
 ---
