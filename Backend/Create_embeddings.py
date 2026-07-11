@@ -39,19 +39,14 @@ def create_embeddings_robust(text_list):
                     
     return all_embeddings, valid_indices
 
-# Initialize ChromaDB client (this creates a 'chroma_db' folder in your directory to save data)
-client = chromadb.PersistentClient(path="./chroma_db")
-
-# Create or get a collection (a table/index in vector DB terminology)
-collection = client.get_or_create_collection(name="transcripts")
-
-# List all the jsons safely
-jsons = [f for f in os.listdir("transcripts") if f.endswith(".json")]
-
-for json_file in jsons:
-    with open(f"transcripts/{json_file}", encoding="utf-8") as f:
+def index_json_into_chroma(json_path, chroma_dir):
+    client = chromadb.PersistentClient(path=chroma_dir)
+    collection = client.get_or_create_collection(name="transcripts")
+    
+    with open(json_path, encoding="utf-8") as f:
         content = json.load(f)
         
+    json_file = os.path.basename(json_path)
     print(f"Creating Embeddings for {json_file}")
     
     # Pre-filter explicitly empty chunks
@@ -59,7 +54,7 @@ for json_file in jsons:
     
     if not valid_chunks:
         print(f"Skipping {json_file} because it has no valid text chunks.")
-        continue
+        return 0
 
     # Extract text
     texts = [c['text'].strip() for c in valid_chunks]
@@ -93,7 +88,33 @@ for json_file in jsons:
             metadatas=metadatas
         )
         print(f"Successfully added {len(final_texts)} chunks from {json_file} into ChromaDB.\n")
+        return len(final_texts)
     else:
         print(f"No valid embeddings could be generated for {json_file}.\n")
+        return 0
 
-print(f"All done! Total chunks in your ChromaDB database: {collection.count()}")
+def get_collection_count(chroma_dir):
+    client = chromadb.PersistentClient(path=chroma_dir)
+    collection = client.get_or_create_collection(name="transcripts")
+    return collection.count()
+
+def index_all_transcripts():
+    # Initialize ChromaDB client (this creates a 'chroma_db' folder in your directory to save data)
+    client = chromadb.PersistentClient(path="./chroma_db")
+
+    # Create or get a collection (a table/index in vector DB terminology)
+    collection = client.get_or_create_collection(name="transcripts")
+
+    # List all the jsons safely
+    jsons = [f for f in os.listdir("transcripts") if f.endswith(".json")]
+
+    for json_file in jsons:
+        index_json_into_chroma(f"transcripts/{json_file}", "./chroma_db")
+
+    print(f"All done! Total chunks in your ChromaDB database: {collection.count()}")
+
+if __name__ == "__main__":
+    if not os.path.exists("transcripts"):
+        print("Directory not found: transcripts")
+    else:
+        index_all_transcripts()
